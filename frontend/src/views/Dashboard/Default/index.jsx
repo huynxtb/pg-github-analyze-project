@@ -183,49 +183,6 @@ const Default = () => {
 
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
-          <Grid item lg={12} xs={12}>
-            <Card>
-              <CardHeader
-                title={
-                  <Typography component="div" className="card-header">
-                    Filter
-                  </Typography>
-                }
-              />
-              <Divider />
-              <CardContent>
-                <Flex gap="small" wrap>
-                  <RangePicker
-                    onChange={handleDateChange}
-                    value={selectedDateRange}
-                  />
-                  <Select
-                    defaultValue={summaryData?.data?.filterData?.repoId}
-                    filterOption={(input, option) =>
-                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                    }
-                    showSearch
-                    placeholder="Select repository"
-                    style={{
-                      width: 250,
-                    }}
-                    options={repositoryOpt}
-                    onChange={handleRepositoryChange}
-                    value={selectedRepository}
-                  />
-                  <Button type="primary" loading={loading} onClick={handleGenerateClick}>Generate Report</Button>
-                  <Button type="default" onClick={handleClearClick}>Clear</Button>
-                </Flex>
-
-                <span>Last sync: {lastSync?.syncAtDisplay} (UTC)</span>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
           <Grid item lg={6} xs={12}>
             <Card>
               <CardHeader
@@ -296,6 +253,49 @@ const Default = () => {
                     <Bar dataKey="count" barSize={20} fill="#8884d8" />
                   </BarChart>
                 </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Grid container spacing={gridSpacing}>
+          <Grid item lg={12} xs={12}>
+            <Card>
+              <CardHeader
+                title={
+                  <Typography component="div" className="card-header">
+                    Filter
+                  </Typography>
+                }
+              />
+              <Divider />
+              <CardContent>
+                <Flex gap="small" wrap>
+                  <RangePicker
+                    onChange={handleDateChange}
+                    value={selectedDateRange}
+                  />
+                  <Select
+                    defaultValue={summaryData?.data?.filterData?.repoId}
+                    filterOption={(input, option) =>
+                      (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                    }
+                    showSearch
+                    placeholder="Select repository"
+                    style={{
+                      width: 250,
+                    }}
+                    options={repositoryOpt}
+                    onChange={handleRepositoryChange}
+                    value={selectedRepository}
+                  />
+                  <Button type="primary" loading={loading} onClick={handleGenerateClick}>Generate Report</Button>
+                  <Button type="default" onClick={handleClearClick}>Clear</Button>
+                </Flex>
+
+                <span>Last sync: {lastSync?.syncAtDisplay} (UTC)</span>
               </CardContent>
             </Card>
           </Grid>
