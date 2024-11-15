@@ -1,4 +1,4 @@
-﻿using GithubAnalyzeAPI.Services;
+using GithubAnalyzeAPI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
@@ -16,7 +16,7 @@ public static class JobExtensions
             q.AddTrigger(opts => opts
                 .ForJob(jobKey)
                 .WithIdentity("GithubJobSyncService-trigger")
-                .WithCronSchedule("0 0 0 * * ?")
+                .WithCronSchedule("0 0 0/6 1/1 * ? *")
             );
         });
 
