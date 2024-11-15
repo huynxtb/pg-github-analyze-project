@@ -16,7 +16,7 @@ public static class JobExtensions
             q.AddTrigger(opts => opts
                 .ForJob(jobKey)
                 .WithIdentity("GithubJobSyncService-trigger")
-                .WithCronSchedule("0 0 0/6 1/1 * ? *")
+                .WithCronSchedule("0 0 */4 * * ?")
             );
         });
 
