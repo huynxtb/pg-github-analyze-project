@@ -32,13 +32,25 @@ import {
 
 const { RangePicker } = DatePicker;
 
-const ViewCloneTooltip = ({ active, payload, label }) => {
+const ViewTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
-    console.log('payload:', payload);
     return (
       <div className="custom-tooltip">
         <p className="label">{`${label}`}</p>
         <p className="intro">Views: {`${payload[0].value}`}</p>
+        <p className="intro">Uniques: {`${payload[0].payload.uniques}`}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const CloneTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${label}`}</p>
+        <p className="intro">Clones: {`${payload[0].value}`}</p>
         <p className="intro">Uniques: {`${payload[0].payload.uniques}`}</p>
       </div>
     );
@@ -78,8 +90,6 @@ const Default = () => {
   const [lastSync, setLastSync] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  console.log('BASE_ADDRESS:', BASE_ADDRESS);
-  
   const fetchSummaryData = async () => {
     setLoading(true);
     try {
@@ -211,7 +221,7 @@ const Default = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="repoName" />
                     <YAxis />
-                    <Tooltip content={<ViewCloneTooltip />} />
+                    <Tooltip content={<ViewTooltip />} />
                     <Legend />
                     <Bar dataKey="count" barSize={20} fill="#8884d8" />
                   </BarChart>
@@ -248,7 +258,7 @@ const Default = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="repoName" />
                     <YAxis />
-                    <Tooltip content={<ViewCloneTooltip />} />
+                    <Tooltip content={<CloneTooltip />} />
                     <Legend />
                     <Bar dataKey="count" barSize={20} fill="#8884d8" />
                   </BarChart>
