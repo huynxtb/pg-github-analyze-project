@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, DatePicker, Select, Flex } from 'antd';
+import { Button, DatePicker, Select, Flex, Space } from 'antd';
 import { useTheme } from '@mui/material/styles';
 import {
   Grid,
@@ -162,8 +162,43 @@ const Default = () => {
     setFiltered(!filterd);
   }
 
+  const handleReSyncClick = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${BASE_ADDRESS}/traffic/sync`, {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      setLoading(false);
+      setFiltered(!filterd);
+      fetchHistorySync();
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <Grid container spacing={gridSpacing}>
+
+      <Grid item xs={12}>
+        <Grid container spacing={gridSpacing}>
+          <Grid item lg={12} xs={12}>
+            <Card>
+              <CardContent>
+                <Space gap="small" wrap>
+                  <span>Last sync: {lastSync?.syncAtDisplay} (UTC)</span>
+                  <Button type="primary" loading={loading} onClick={handleReSyncClick}>Sync data</Button>
+                </Space>
+
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
 
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
@@ -276,7 +311,7 @@ const Default = () => {
               <CardHeader
                 title={
                   <Typography component="div" className="card-header">
-                    Filter
+                    Generate Report
                   </Typography>
                 }
               />
@@ -301,11 +336,9 @@ const Default = () => {
                     onChange={handleRepositoryChange}
                     value={selectedRepository}
                   />
-                  <Button type="primary" loading={loading} onClick={handleGenerateClick}>Generate Report</Button>
-                  <Button type="default" onClick={handleClearClick}>Clear</Button>
+                  <Button type="primary" loading={loading} onClick={handleGenerateClick}>Generate report</Button>
+                  <Button type="default" loading={loading} onClick={handleClearClick}>Clear</Button>
                 </Flex>
-
-                <span>Last sync: {lastSync?.syncAtDisplay} (UTC)</span>
               </CardContent>
             </Card>
           </Grid>

@@ -200,8 +200,8 @@ public class TrafficService(
                     Items = cloneFilterJoinedData.ToList(),
                     TotalClones = cloneData.Where(s => s.RepoId == repoFilter.RepoId).Sum(s => s.Count),
                     TotalUniqueCloners = cloneData.Where(s => s.RepoId == repoFilter.RepoId).Sum(s => s.Uniques),
-                    Clones = cloneDataFilter.Sum(s => s.Count),
-                    UniqueCloners = cloneDataFilter.Sum(s => s.Uniques)
+                    Clones = cloneFilterJoinedData.Sum(s => s.Count),
+                    UniqueCloners = cloneFilterJoinedData.Sum(s => s.Uniques)
                 },
                 Clone = new SummaryCloneDto()
                 {
@@ -214,8 +214,8 @@ public class TrafficService(
                     Items = viewFilterJoinedData.ToList(),
                     TotalViews = viewData.Where(s => s.RepoId == repoFilter.RepoId).Sum(s => s.Count),
                     TotalUniqueVisitors = viewData.Where(s => s.RepoId == repoFilter.RepoId).Sum(s => s.Uniques),
-                    Views = viewDataFilter.Sum(s => s.Count),
-                    UniqueVisitors = viewDataFilter.Sum(s => s.Uniques)
+                    Views = viewFilterJoinedData.Sum(s => s.Count),
+                    UniqueVisitors = viewFilterJoinedData.Sum(s => s.Uniques)
                 },
                 View = new SummaryViewDto()
                 {
